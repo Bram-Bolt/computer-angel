@@ -1,22 +1,26 @@
 @main def angel(): Unit = {
-    println("Welcome!")
-    val lines = List("Hallo!", "Ik hou van pindakaas!", "doei..")
+    println("Programming compiled!")
+    val lines0 = List("")
+    val lines1 = List("Hallo!")
+    val lines2 = List("Hallo!", "Ik hou van pindakaas!")
+    val lines3 = List("Hallo!", "Ik hou van pindakaas!", "doei..")
     //println(buildSpeechBubble(lines))
-    println(advancedBubble(lines))
+    println(getSpeechBubble(lines0))
+    println(getSpeechBubble(lines1))
+    println(getSpeechBubble(lines2))
+    println(getSpeechBubble(lines3))
 }
 
-def buildSpeechBubble(lines: List[String]): String = {
-    val bubble = " "
+def getSpeechBubble(lines: List[String]): String = {
     val longest = getLongestLine(lines)
-    val x = bubble + getBar(longest, false) + getBar(longest, true)
+    val x = getBar(longest, false) + getQuote(lines) + getBar(longest, true)
     x
 }
 
-def quote(lines: List[String]): String = {
+def getQuote(lines: List[String]): String = {
     lines.length match {
-        case 0 => "< ... >"
-        case 1 => s"<${lines(0)}>"
-        case 2 => advancedBubble(lines)
+        case 1 => s"< ${lines(0)} >\n"
+        case _ => advancedBubble(lines)
     }
 }
 
@@ -39,8 +43,8 @@ def advancedBubble(lines:List[String]): String = {
 
 
 def getBar(len: Int, bottom: Boolean): String = {
-    if (bottom) "-" * (len + 2) + "\n"
-    else "_" * (len + 2)  + "\n"
+    val lineChar = if (bottom) '-' else '_'
+    " " + (lineChar.toString * (len + 2)) + "\n"
 }
 
 def getLongestLine(lines: List[String]): Int = {
