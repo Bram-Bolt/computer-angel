@@ -19,11 +19,22 @@ def quote(lines: List[String]): String = {
     }
 }
 
-def advancedBubble(lines:List[String]): String {
-    lines.length match = {
-        
-    }
+def getMargin(line: Int, maxLine: Int): String {
+    val diff = maxLine - line
+    " " * diff
 }
+
+def advancedBubble(lines:List[String], maxLine: Int): String {
+    def middleBubble(lines:List[String]): String{
+        case Nil => ""
+        case x => s"\\ ${lines.last}${getMargin(lines.last.length, maxLine)} /" + middleBubble(Nil)
+        case x::xs => s"| ${lines.last}${getMargin(lines.last.length, maxLine)} |" + middleBubble(xs)
+    }
+    s"/ ${lines(0)}${getMargin(lines(0).length,linemaxLine)} \\" + middleBubble(lines.tail)
+}
+
+
+
 def getBar(len: Int, bottom: Boolean): String = {
     if (bottom) "-" * (len + 2) + "\n"
     else "_" * (len + 2)  + "\n"
