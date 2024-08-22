@@ -1,17 +1,19 @@
 @main def angel(): Unit = {
     println("Welcome!")
     val lines = List("Hallo!", "Ik hou van pindakaas!", "doei..")
-    println(getLongestLine(lines))
+    println(buildSpeechBubble(lines))
 }
 
-def buildSpeechBubble(): String = {
+def buildSpeechBubble(lines: List[String]): String = {
     val bubble = " "
-
+    val longest = getLongestLine(lines)
+    val x = bubble + getBar(longest, false) + getBar(longest, true)
+    x
 }
 
-def getBar(len: Int, bottom: Bool): String = {
-    if (bottom) "-" * len
-    else "_" * len
+def getBar(len: Int, bottom: Boolean): String = {
+    if (bottom) "-" * (len + 2) + "\n"
+    else "_" * (len + 2)  + "\n"
 }
 
 def getLongestLine(lines: List[String]): Int = {
