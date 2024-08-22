@@ -13,47 +13,51 @@
 
 def getSpeechBubble(lines: List[String]): String = {
   val longest = getLongestLine(lines)
-  val x = getBar(longest, false) + getQuote(lines) + getBar(longest, true)
-  x
+  getTopBar(longest) + getQuoteBubble(lines) + getBottomBar(longest)
 }
 
-def getQuote(lines: List[String]): String = {
+def getQuoteBubble(lines: List[String]): String = {
   lines.length match {
-    case 0 | 1 => singleBubble(lines)
-    case _     => multiBubble(lines)
+    case 0 | 1 => getSingleBubble(lines)
+    case _     => getMultiBubble(lines)
   }
 }
 
-def getMargin(line: Int, maxLine: Int): String = {
-  val diff = (maxLine - line)
-  " " * diff
+def getMargin(lineLength: Int, maxLineLength: Int): String = {
+  " " * (maxLineLength - lineLength)
 }
 
-def singleBubble(lines: List[String]): String = {
+def getSingleBubble(lines: List[String]): String = {
   val maxLine = getLongestLine(lines)
-  if (lines == Nil) "< ... >\n"
-  else s"< ${lines(0)}${getMargin(lines(0).length, maxLine)} >\n"
-}
-
-def multiBubble(lines: List[String]): String = {
-  val maxLine = getLongestLine(lines)
-  def middleBubble(lines: List[String]): String = {
-    lines match {
-      case Nil => ""
-      case x :: Nil =>
-        s"\\ ${x}${getMargin(x.length, maxLine)} /\n" + middleBubble(Nil)
-      case x :: xs =>
-        s"| ${x}${getMargin(x.length, maxLine)} |\n" + middleBubble(xs)
-    }
+  lines match {
+    case Nil => "< ... >\n"
+    case _   => s"< ${lines.head}${getMargin(lines.head.length, maxLine)} >\n"
   }
-  s"/ ${lines(0)}${getMargin(lines(0).length, maxLine)} \\\n" + middleBubble(
-    lines.tail
-  )
 }
 
-def getBar(len: Int, bottom: Boolean): String = {
-  val lineChar = if (bottom) '-' else '_'
-  " " + (lineChar.toString * (len + 2)) + "\n"
+def getMultiBubble(lines: List[String]): String = {
+  val maxLine = getLongestLine(lines)
+  val top = s"/ ${lines(0)}${getMargin(lines(0).length, maxLine)} \\\n"
+  val middle =
+    if (lines.length > 2)
+      lines
+        .slice(1, lines.length - 1)
+        .map { line =>
+          s"| ${line}${getMargin(line.length, maxLine)} |"
+        }
+        .mkString("\n") + "\n"
+    else ""
+  val bottom = s"\\ ${lines.last}${getMargin(lines.last.length, maxLine)} /\n"
+
+  top + middle + bottom
+}
+
+def getBottomBar(len: Int): String = {
+  " " + ("-" * (len + 2)) + "\n"
+}
+
+def getTopBar(len: Int): String = {
+  " " + ("-" * (len + 2)) + "\n"
 }
 
 def getLongestLine(lines: List[String]): Int = {
