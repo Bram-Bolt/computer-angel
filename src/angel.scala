@@ -11,6 +11,19 @@ def buildSpeechBubble(lines: List[String]): String = {
     x
 }
 
+def quote(lines: List[String]): String = {
+    lines.length match = {
+        case 0 => "< ... >"
+        case 1 => s"<${lines(0)}>"
+        case 2 => advancedBubble(lines)
+    }
+}
+
+def advancedBubble(lines:List[String]): String {
+    lines.length match = {
+        
+    }
+}
 def getBar(len: Int, bottom: Boolean): String = {
     if (bottom) "-" * (len + 2) + "\n"
     else "_" * (len + 2)  + "\n"
