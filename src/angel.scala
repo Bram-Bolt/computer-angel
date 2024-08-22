@@ -1,7 +1,8 @@
 @main def angel(): Unit = {
     println("Welcome!")
     val lines = List("Hallo!", "Ik hou van pindakaas!", "doei..")
-    println(buildSpeechBubble(lines))
+    //println(buildSpeechBubble(lines))
+    println(advancedBubble(lines))
 }
 
 def buildSpeechBubble(lines: List[String]): String = {
@@ -12,25 +13,27 @@ def buildSpeechBubble(lines: List[String]): String = {
 }
 
 def quote(lines: List[String]): String = {
-    lines.length match = {
+    lines.length match {
         case 0 => "< ... >"
         case 1 => s"<${lines(0)}>"
         case 2 => advancedBubble(lines)
     }
 }
 
-def getMargin(line: Int, maxLine: Int): String {
-    val diff = maxLine - line
+def getMargin(line: Int, maxLine: Int): String = {
+    val diff = (maxLine - line)
     " " * diff
 }
 
-def advancedBubble(lines:List[String], maxLine: Int): String {
-    def middleBubble(lines:List[String]): String{
+def advancedBubble(lines:List[String]): String = {
+    val maxLine = getLongestLine(lines)
+    def middleBubble(lines:List[String]): String = {
+        lines match {
         case Nil => ""
-        case x => s"\\ ${lines.last}${getMargin(lines.last.length, maxLine)} /" + middleBubble(Nil)
-        case x::xs => s"| ${lines.last}${getMargin(lines.last.length, maxLine)} |" + middleBubble(xs)
-    }
-    s"/ ${lines(0)}${getMargin(lines(0).length,linemaxLine)} \\" + middleBubble(lines.tail)
+        case x::Nil => s"\\ ${x}${getMargin(x.length, maxLine)} /\n" + middleBubble(Nil)
+        case x::xs => s"| ${x}${getMargin(x.length, maxLine)} |\n" + middleBubble(xs)
+    }}
+    s"/ ${lines(0)}${getMargin(lines(0).length, maxLine)} \\\n" + middleBubble(lines.tail)
 }
 
 
