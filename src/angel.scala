@@ -34,8 +34,8 @@ def getMargin(lineLength: Int, maxLineLength: Int): String = {
 
 def getSingleBubble(lines: List[String], longest: Int): String = {
   lines match {
-    case Nil => "< ... >\n"
-    case _   => s"< ${lines.head}${getMargin(lines.head.length, longest)} >\n"
+    case Nil => "| ... |\n"
+    case _   => s"| ${lines.head}${getMargin(lines.head.length, longest)} |\n"
   }
 }
 
