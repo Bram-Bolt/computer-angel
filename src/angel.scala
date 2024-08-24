@@ -1,15 +1,13 @@
 @main def angel(): Unit = {
-  println("Compilation succesful yippee")
-  val lines0 = List()
-  val lines1 = List("Hallo!")
-  val lines2 = List("Hallo!", "Ik hou van pindakaas!")
-  val lines3 = List("Hallo!", "Ik hou van pindakaas!", "doei..")
-  // println(buildSpeechBubble(lines))
+  val zero_line_test = List()
+  val one_line_test = List("One Line!")
+  val two_line_test = List("Line one!", "Line twooooooo")
+  val three_line_test = List("Line one!", "Line twoooooo", "Line three ;)")
 
-  println(getSpeechBubble(lines0))
-  println(getSpeechBubble(lines1))
-  println(getSpeechBubble(lines2))
-  println(getSpeechBubble(lines3))
+  println(getSpeechBubble(zero_line_test))
+  println(getSpeechBubble(one_line_test))
+  println(getSpeechBubble(two_line_test))
+  println(getSpeechBubble(three_line_test))
 }
 
 def getSpeechBubble(lines: List[String]): String = {
