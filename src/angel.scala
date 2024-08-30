@@ -1,13 +1,13 @@
-@main def angel(): Unit = {
-  val zero_line_test = List()
-  val one_line_test = List("One Line!")
-  val two_line_test = List("Line one!", "Line twooooooo")
-  val three_line_test = List("Line one!", "Line twoooooo", "Line three ;)")
+import scala.io.Source
 
-  println(getSpeechBubble(zero_line_test))
-  println(getSpeechBubble(one_line_test))
-  println(getSpeechBubble(two_line_test))
-  println(getSpeechBubble(three_line_test))
+@main def angel(args: String*): Unit = {
+  val source = if (args.isEmpty) Source.stdin else Source.fromFile(args.head)
+  try {
+    val lines = source.getLines().toList
+    println(getSpeechBubble(lines.map(tabToSpaces)))
+  } finally {
+    source.close()
+  }
 }
 
 def getSpeechBubble(lines: List[String]): String = {
