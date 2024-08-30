@@ -11,9 +11,11 @@
 }
 
 def getSpeechBubble(lines: List[String]): String = {
-  val longest = getLongestLine(lines)
+  val cleaned_line = lines.map(tabToSpaces)
+  val longest = getLongestLine(cleaned_line)
+
   val topBar = getTopBar(longest)
-  val quoteBubble = getQuoteBubble(lines, longest)
+  val quoteBubble = getQuoteBubble(cleaned_line, longest)
   val bottomBar = getBottomBar(longest)
 
   topBar + quoteBubble + bottomBar
@@ -82,4 +84,8 @@ def getLongestLine(lines: List[String]): Int = {
     }
     getMax(lengths, 3)
   }
+}
+
+def tabToSpaces(line: String): String = {
+  line.replace("\t", "    ") // Replaces each tab character with four spaces
 }
