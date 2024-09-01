@@ -1,13 +1,22 @@
 import scala.io.Source
 
-@main def angel(args: String*): Unit = {
-  val source = if (args.isEmpty) Source.stdin else Source.fromFile(args.head)
-  try {
-    val lines = source.getLines().toList
-    println(getSpeechBubble(lines.map(tabToSpaces)))
-  } finally {
-    source.close()
+@main def computerAngel(args: String*): Unit = {
+  val lines = if (args.isEmpty) {
+    // Read from stdin (pipe input) if no arguments are given
+    Source.stdin.getLines().toList
+  } else {
+    // Use command-line argument as the text input
+    args.mkString(" ").split("\n").toList
   }
+  
+  // If no input was provided (either empty stdin or command-line argument), use default
+  val finalLines = if (lines.isEmpty) getQuote() else lines
+  
+  println(getSpeechBubble(finalLines))
+}
+
+def getQuote(): List[String] = {
+  List("Hello, World!")
 }
 
 def getSpeechBubble(lines: List[String]): String = {
